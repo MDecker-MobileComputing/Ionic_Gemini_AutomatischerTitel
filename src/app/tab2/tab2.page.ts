@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { EinstellungenService } from '../einstellungen-service';
 
 @Component({
   selector: 'app-tab2',
@@ -6,8 +7,52 @@ import { Component } from '@angular/core';
   styleUrls: ['tab2.page.scss'],
   standalone: false,
 })
-export class Tab2Page {
+export class Tab2Page implements OnInit {
 
-  constructor() {}
+  private static readonly EINSTELLUNGEN_SCHLUESSEL_API_KEY = "geminiApiKey";
+  private static readonly API_KEY_REGEXP_PATTERN           = /^[A-Za-z0-9_-]{30,128}$/;
+
+  public apiKey: string            = "";
+  public meldungApiKey: string     = "";
+  public meldungIstFehler: boolean = false;
+
+
+  /**
+   * Konstruktor für *Dependency Injection*
+   */
+  constructor( private einstellungenService: EinstellungenService ) {}
+
+  /**
+   * Initialisierung der Seite: Laden der gespeicherten Einstellungen.
+   */
+  async ngOnInit() {
+
+    this.apiKey =
+        await this.einstellungenService.leseEinstellung(
+                    Tab2Page.EINSTELLUNGEN_SCHLUESSEL_API_KEY
+        );
+  }
+
+
+  /**
+   * Event-Handler für den Button "API-Key prüfen und speichern".
+   * Validiert den eingegebenen API-Key und speichert ihn bei Erfolg.
+   */
+  async onApiKeyPruefenButton(): Promise<void> {
+
+    const bereinigterKey = this.apiKey.trim();
+
+    if ( !Tab2Page.API_KEY_REGEXP_PATTERN.test( bereinigterKey ) ) {
+
+      this.meldungApiKey    = "Ungültiger API-Key. Erlaubt sind 30-128 Zeichen: A-Z, a-z, 0-9, _ und -.";
+      this.meldungIstFehler = true;
+      return;
+    }
+
+    await this.einstellungenService.setzeEinstellung(Tab2Page.EINSTELLUNGEN_SCHLUESSEL_API_KEY, bereinigterKey);
+    this.apiKey           = bereinigterKey;
+    this.meldungApiKey    = "API-Key erfolgreich gespeichert.";
+    this.meldungIstFehler = false;
+  }
 
 }

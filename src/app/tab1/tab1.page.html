@@ -13,4 +13,42 @@
     </ion-toolbar>
   </ion-header>
 
+  <ion-list>
+    <ion-item>
+      <ion-input
+        label="Titel"
+        labelPlacement="stacked"
+        placeholder="z. B. Tagesbericht vom 08.05.2026"
+        [(ngModel)]="titel"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-button
+        expand="block"
+        (click)="onButtonErzeugeTitelVorschlag()"
+        [disabled]="istTitelWirdGeradeGeneriert"
+      >
+        {{ istTitelWirdGeradeGeneriert ? 'Erzeuge Titel...' : 'Titel-Vorschlag erzeugen' }}
+      </ion-button>
+    </ion-item>
+
+    <ion-item *ngIf="titelFehler" lines="none">
+      <ion-note color="danger">{{ titelFehler }}</ion-note>
+    </ion-item>
+
+    <br><br>
+
+    <ion-item>
+      <ion-textarea
+        label="Text"
+        labelPlacement="stacked"
+        placeholder="Schreibe hier deinen Bericht"
+        autoGrow="true"
+        rows="12"
+        [(ngModel)]="text"
+      ></ion-textarea>
+    </ion-item>
+  </ion-list>
+
 </ion-content>
