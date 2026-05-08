@@ -1,0 +1,7 @@
+{
+  "name": "Gemini_AutomatischeUeberschrift",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
