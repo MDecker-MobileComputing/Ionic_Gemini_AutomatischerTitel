@@ -1,7 +1,7 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'de.eldecker.ionic.ueberschriftautomatisch',
   appName: 'Gemini_AutomatischeUeberschrift',
   webDir: 'www'
 };
