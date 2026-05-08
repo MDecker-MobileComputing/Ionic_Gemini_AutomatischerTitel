@@ -9,9 +9,7 @@ import { EinstellungenService } from '../einstellungen-service';
 })
 export class Tab2Page implements OnInit {
 
-  private static readonly EINSTELLUNGEN_SCHLUESSEL_API_KEY = "geminiApiKey";
 
-  private static readonly EINSTELLUNGEN_SCHLUESSEL_MODELL = "geminiModel";
 
   /** Zur Auswahl der verfügbaren Gemini-Modelle, müssen alphabetisch sortiert sein. */
   public static readonly GEMINI_MODELLE: readonly string[] = [
@@ -28,7 +26,7 @@ export class Tab2Page implements OnInit {
   public meldungApiKey: string     = "";
   public meldungIstFehler: boolean = false;
   public readonly geminiModelle    = Tab2Page.GEMINI_MODELLE;
-  public geminiModell: string       = Tab2Page.GEMINI_MODELLE[0];
+  public geminiModell: string      = Tab2Page.GEMINI_MODELLE[0];
 
 
   /**
@@ -43,12 +41,12 @@ export class Tab2Page implements OnInit {
 
     this.apiKey =
         await this.einstellungenService.leseEinstellung(
-                    Tab2Page.EINSTELLUNGEN_SCHLUESSEL_API_KEY
+                    EinstellungenService.EINSTELLUNGEN_SCHLUESSEL_API_KEY
         );
 
     const geladenesModell =
       await this.einstellungenService.leseEinstellung(
-        Tab2Page.EINSTELLUNGEN_SCHLUESSEL_MODELL
+                    EinstellungenService.SCHLUESSEL_MODELL
       );
 
     if ( Tab2Page.GEMINI_MODELLE.includes( geladenesModell ) ) {
@@ -73,7 +71,10 @@ export class Tab2Page implements OnInit {
       return;
     }
 
-    await this.einstellungenService.setzeEinstellung(Tab2Page.EINSTELLUNGEN_SCHLUESSEL_API_KEY, bereinigterKey);
+    await this.einstellungenService.setzeEinstellung(
+                        EinstellungenService.EINSTELLUNGEN_SCHLUESSEL_API_KEY,
+                        bereinigterKey );
+
     this.apiKey           = bereinigterKey;
     this.meldungApiKey    = "API-Key erfolgreich gespeichert.";
     this.meldungIstFehler = false;
@@ -87,7 +88,7 @@ export class Tab2Page implements OnInit {
 
     await this.einstellungenService.setzeEinstellung(
 
-      Tab2Page.EINSTELLUNGEN_SCHLUESSEL_MODELL,
+      EinstellungenService.SCHLUESSEL_MODELL,
       this.geminiModell
     );
   }

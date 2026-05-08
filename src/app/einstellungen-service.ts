@@ -14,6 +14,10 @@ import { Preferences } from '@capacitor/preferences';
 })
 export class EinstellungenService {
 
+  public static readonly SCHLUESSEL_API_KEY = "geminiApiKey";
+
+  public static readonly SCHLUESSEL_MODELL = "geminiModel";
+
 
   /**
    * Speichert eine Einstellung. Alle Einstellungen werden als String gespeichert.
