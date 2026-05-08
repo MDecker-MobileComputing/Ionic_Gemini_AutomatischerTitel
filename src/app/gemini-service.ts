@@ -30,7 +30,7 @@ export class GeminiService {
    */
   async holeModelle(): Promise<string[]> {
 
-    const apiKey = await this.einstellungenService.leseEinstellung( EinstellungenService.EINSTELLUNGEN_SCHLUESSEL_API_KEY );
+    const apiKey = await this.einstellungenService.leseEinstellung( EinstellungenService.SCHLUESSEL_API_KEY );
     if (!apiKey) {
 
       throw new Error( "Kein API-Key gefunden" );

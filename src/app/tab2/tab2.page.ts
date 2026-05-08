@@ -41,7 +41,7 @@ export class Tab2Page implements OnInit {
 
     this.apiKey =
         await this.einstellungenService.leseEinstellung(
-                    EinstellungenService.EINSTELLUNGEN_SCHLUESSEL_API_KEY
+                    EinstellungenService.SCHLUESSEL_API_KEY
         );
 
     const geladenesModell =
@@ -72,7 +72,7 @@ export class Tab2Page implements OnInit {
     }
 
     await this.einstellungenService.setzeEinstellung(
-                        EinstellungenService.EINSTELLUNGEN_SCHLUESSEL_API_KEY,
+                        EinstellungenService.SCHLUESSEL_API_KEY,
                         bereinigterKey );
 
     this.apiKey           = bereinigterKey;
