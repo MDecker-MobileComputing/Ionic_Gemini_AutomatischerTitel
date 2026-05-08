@@ -7,18 +7,30 @@ import { Preferences } from '@capacitor/preferences';
  * Verwendet intern das folgende Capacitor-Plugin: https://capacitorjs.com/docs/apis/preferences
  *
  * Funktioniert auch in Browsern, da das Plugin in diesem Fall die `localStorage`-API verwendet.
+ * Hier wird z.B. für den Key `abc` der Wert `CapacitorStorage.abc` verwendet.
  */
 @Injectable({
   providedIn: 'root',
 })
 export class EinstellungenService {
 
+
+  /**
+   * Speichert eine Einstellung. Alle Einstellungen werden als String gespeichert.
+   *
+   * @param schluessel  Key unter dem der Einstellungswert gespeichert werden soll
+   *
+   * @param wert Wert der Einstellung, z.B. API-Key oder ausgewähltes Gemini-Modell
+   */
   async setzeEinstellung( schluessel: string, wert: string ): Promise<void> {
 
     await Preferences.set({ key: schluessel, value: wert });
   }
 
+
   /**
+   * Liest eine Einstellung aus. Gibt den gespeicherten Wert zurück
+   * oder "" (leerer String) wenn nicht vorhanden.
    *
    * @param schluessel Key für Einstellungswert
    *

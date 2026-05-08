@@ -10,11 +10,25 @@ import { EinstellungenService } from '../einstellungen-service';
 export class Tab2Page implements OnInit {
 
   private static readonly EINSTELLUNGEN_SCHLUESSEL_API_KEY = "geminiApiKey";
-  private static readonly API_KEY_REGEXP_PATTERN           = /^[A-Za-z0-9_-]{30,128}$/;
+
+  private static readonly EINSTELLUNGEN_SCHLUESSEL_MODELL = "geminiModel";
+
+  /** Zur Auswahl der verfügbaren Gemini-Modelle, müssen alphabetisch sortiert sein. */
+  public static readonly GEMINI_MODELLE: readonly string[] = [
+    "gemini-2.0-flash",
+    "gemini-2.0-flash-lite",
+    "gemini-2.5-flash",
+    "gemini-2.5-flash-lite",
+  ];
+
+  /** Regulärer Ausdruck für die Validierung des API-Keys. */
+  private static readonly API_KEY_REGEXP_PATTERN = /^[A-Za-z0-9_-]{30,128}$/;
 
   public apiKey: string            = "";
   public meldungApiKey: string     = "";
   public meldungIstFehler: boolean = false;
+  public readonly geminiModelle    = Tab2Page.GEMINI_MODELLE;
+  public geminiModell: string       = Tab2Page.GEMINI_MODELLE[0];
 
 
   /**
@@ -31,6 +45,16 @@ export class Tab2Page implements OnInit {
         await this.einstellungenService.leseEinstellung(
                     Tab2Page.EINSTELLUNGEN_SCHLUESSEL_API_KEY
         );
+
+    const geladenesModell =
+      await this.einstellungenService.leseEinstellung(
+        Tab2Page.EINSTELLUNGEN_SCHLUESSEL_MODELL
+      );
+
+    if ( Tab2Page.GEMINI_MODELLE.includes( geladenesModell ) ) {
+
+      this.geminiModell = geladenesModell;
+    }
   }
 
 
@@ -53,6 +77,19 @@ export class Tab2Page implements OnInit {
     this.apiKey           = bereinigterKey;
     this.meldungApiKey    = "API-Key erfolgreich gespeichert.";
     this.meldungIstFehler = false;
+  }
+
+
+  /**
+   * Speichert das aktuell im Dropdown ausgewählte Gemini-Modell.
+   */
+  async onGeminiModellGeaendert(): Promise<void> {
+
+    await this.einstellungenService.setzeEinstellung(
+
+      Tab2Page.EINSTELLUNGEN_SCHLUESSEL_MODELL,
+      this.geminiModell
+    );
   }
 
 }

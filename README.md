@@ -9,16 +9,6 @@ die demonstrieren soll, wie man die LLM-KI [Gemini](https://ai.google.dev/) übe
 
 ----
 
-## Screenshots ##
-
-<br>
-
-![Screenshot](screenshot_1.png)
-
-<br>
-
-----
-
 ## License ##
 
 <br>
