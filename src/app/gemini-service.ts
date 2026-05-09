@@ -89,8 +89,6 @@ export class GeminiService {
    */
   async erzeugeTitelvorschlaege( text: string ): Promise<string[]> {
 
-    //throw new Error("Die Methode erzeugeTitelvorschlaege() ist noch nicht implementiert. Bitte implementieren Sie diese Methode, um Titelvorschläge zu generieren.");
-
     const apiKey = 
           await this.einstellungenService.leseEinstellung( 
                     EinstellungenService.SCHLUESSEL_API_KEY 
@@ -127,14 +125,17 @@ export class GeminiService {
           parts: [{ text: prompt }]
         }
       ]
-    };
+    }; 
+    // Je höher die Temperatur, desto kreativer die Antworten. Bei 0.7 ist es eine gute Balance 
+    // zwischen Kreativität und Verständlichkeit.
+    //
     // Weitere Parts neben dem Prompt könnten z.B. Binärdaten sein, z.B. Bilder oder PDFs.
-    // Je höher die Temperatur, desto kreativer die Antworten. Bei 0.7 ist es eine gute Balance zwischen Kreativität und Verständlichkeit.
 
     const antwortObservable = 
         this.httpClient.post<GeminiGenerateContentResponse>( url, httpRequestBody );
     
-    // Beispiel für JSON-Response: https://gist.github.com/MDecker-MobileComputing/85e830f233962bf2ad479385377647d5
+    // Beispiel für JSON-Response: 
+    // https://gist.github.com/MDecker-MobileComputing/85e830f233962bf2ad479385377647d5
 
     const antwort = await firstValueFrom( antwortObservable );
 
