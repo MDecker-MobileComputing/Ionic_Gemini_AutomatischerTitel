@@ -1,6 +1,7 @@
 import { Component, OnInit }    from '@angular/core';
 import { EinstellungenService } from '../einstellungen-service';
 import { GeminiService }        from '../gemini-service';
+import { extrahiereFehlermeldung } from '../fehlertext.util';
 
 @Component({
   selector: 'app-tab2',
@@ -79,7 +80,7 @@ export class Tab2Page implements OnInit {
 
     } catch ( fehler ) {
       
-      this.meldungApiKey    = "Fehler bei Testverbindung zu Gemini: " + this.ermittleFehlermeldung( fehler );
+      this.meldungApiKey    = "Fehler bei Testverbindung zu Gemini: " + extrahiereFehlermeldung( fehler );
       this.meldungIstFehler = true;
       return; 
     }
@@ -106,63 +107,5 @@ export class Tab2Page implements OnInit {
     );
   }
 
-
-  /**
-   * Wandelt unterschiedliche Fehlerobjekte in eine lesbare Meldung um.
-   */
-  private ermittleFehlermeldung( fehler: unknown ): string {
-
-    if ( typeof fehler === "string" ) {
-
-      return fehler;
-    }
-
-    if ( fehler instanceof Error ) {
-
-      return fehler.message;
-    }
-
-    if ( fehler && typeof fehler === "object" ) {
-
-      const fehlerObj = fehler as {
-        status?: number;
-        statusText?: string;
-        message?: string;
-        error?: unknown;
-      };
-
-      const apiFehler = fehlerObj.error as {
-        message?: string;
-        error?: { message?: string };
-      } | undefined;
-
-      const apiFehlertext =
-        apiFehler?.error?.message ??
-        apiFehler?.message ??
-        ( typeof fehlerObj.error === "string" ? fehlerObj.error : undefined ) ??
-        fehlerObj.message;
-
-      if ( apiFehlertext ) {
-
-        return apiFehlertext;
-      }
-
-      if ( typeof fehlerObj.status === "number" ) {
-
-        return `HTTP ${fehlerObj.status}${fehlerObj.statusText ? ` ${fehlerObj.statusText}` : ""}`;
-      }
-
-      try {
-
-        return JSON.stringify( fehlerObj );
-
-      } catch {
-
-        return "Unbekannter Fehler";
-      }
-    }
-
-    return "Unbekannter Fehler";
-  }
 
 }
