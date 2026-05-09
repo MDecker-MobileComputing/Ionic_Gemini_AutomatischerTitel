@@ -80,19 +80,29 @@ export class GeminiService {
 
 
     const model = 
-          await this.einstellungenService.leseEinstellung( 
-                EinstellungenService.SCHLUESSEL_MODELL ) || "gemini-2.0-flash";
+          await this.einstellungenService.leseEinstellung(
+            EinstellungenService.SCHLUESSEL_MODELL,
+            "gemini-2.0-flash"
+          );
+
+    const anzahlTitelvorschlaegeString =
+          await this.einstellungenService.leseEinstellung(
+              EinstellungenService.SCHLUESSEL_ANZAHL_TITELVORSCHLAEGE,
+              "5"
+          );
 
     const prompt =
-          `Erzeuge genau 5 Titelvorschläge für folgenden Text. \
+          `Erzeuge genau ${anzahlTitelvorschlaegeString} Titelvorschläge für folgenden Text. \
           Die Titel sollen sachlich und nüchtern formuliert sein, \
           ohne reißerische oder werbende Sprache. \
           Gib als Antwort ausschließlich ein gültiges JSON-Array aus Strings zurück, \
-          z.B. ["Titel 1", "Titel 2", "Titel 3", "Titel 4", "Titel 5"]. \
+          z.B. ["Titel 1", "Titel 2", "Titel 3"]. \
           Gib keinen zusätzlichen Text, keine Markdown-Formatierung und keine Erklärungen aus. \
           Text: ${text}`;
  
     const url = `${GeminiService.GEMINI_BASIS_URL}/models/${model}:generateContent?key=${apiKey}`;
+
+    console.log( `Sende Anfrage für ${anzahlTitelvorschlaegeString} Titelvorschläge an KI-Modell "${model}" ...` );
 
     const httpRequestBody: GeminiGenerateContentRequest = {
       generationConfig: {
@@ -133,7 +143,7 @@ export class GeminiService {
 
       throw new Error( "Die KI-Antwort ist kein gültiges JSON-Array." );
     }
-    
+
     return parsedArray;
   }
 

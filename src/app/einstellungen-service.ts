@@ -20,6 +20,9 @@ export class EinstellungenService {
   /** Schlüssel für Einstellung mit ausgewähltem Gemini-Modell.  */
   public static readonly SCHLUESSEL_MODELL = "geminiModel";
 
+  /** Schlüssel für Einstellung mit Anzahl von Titelvorschlägen pro API-Request. */
+  public static readonly SCHLUESSEL_ANZAHL_TITELVORSCHLAEGE = "anzahlTitelvorschlaege";
+
 
   /**
    * Speichert eine Einstellung. Alle Einstellungen werden als String gespeichert.
@@ -41,16 +44,18 @@ export class EinstellungenService {
 
   /**
    * Liest eine Einstellung aus. Gibt den gespeicherten Wert zurück
-   * oder "" (leerer String) wenn nicht vorhanden.
+   * oder `defaultWert` wenn nicht vorhanden.
    *
    * @param schluessel Key für Einstellungswert
+   * 
+   * @param defaultWert Optionaler Fallback-Wert, wenn keine Einstellung vorhanden ist
    *
-   * @returns String für `schluessel` oder "" (leerer String) wenn nicht vorhanden
+   * @returns String für `schluessel` oder `defaultWert` wenn nicht vorhanden
    */
-  public async leseEinstellung( schluessel: string  ): Promise<string> {
+  public async leseEinstellung( schluessel: string, defaultWert: string = "" ): Promise<string> {
 
     const { value } = await Preferences.get({ key: schluessel });
-    return value ?? "";
+    return value ?? defaultWert;
   }
 
 }

@@ -38,9 +38,13 @@ export class Tab2Page implements OnInit {
   /** Regulärer Ausdruck für die Validierung des API-Keys. */
   private static readonly API_KEY_REGEXP_PATTERN = /^[A-Za-z0-9_-]{30,128}$/;
 
+  /** Gültiger Wertebereich für die Anzahl an Titelvorschlägen. */
+  private static readonly TITELVORSCHLAEGE_DEFAULT = 5;
+
   // Aktuell im Template angezeigte Werte und Meldungen
   public apiKey: string       = "";
   public geminiModell: string = Tab2Page.GEMINI_MODELLE[0];
+  public anzahlTitelvorschlaege: number = Tab2Page.TITELVORSCHLAEGE_DEFAULT;
 
   // Meldungen für die Validierung des API-Keys
   public meldungApiKey: string     = "";
@@ -66,13 +70,22 @@ export class Tab2Page implements OnInit {
 
     const gespeichertesModell =
       await this.einstellungenService.leseEinstellung(
-                    EinstellungenService.SCHLUESSEL_MODELL
+                    EinstellungenService.SCHLUESSEL_MODELL,
+                    Tab2Page.GEMINI_MODELLE[0]
       );
 
     if ( Tab2Page.GEMINI_MODELLE.includes( gespeichertesModell ) ) {
 
       this.geminiModell = gespeichertesModell;
     }
+
+    const gespeicherteAnzahlString =
+      await this.einstellungenService.leseEinstellung(
+                    EinstellungenService.SCHLUESSEL_ANZAHL_TITELVORSCHLAEGE,
+                    "5"
+      );
+
+    this.anzahlTitelvorschlaege = Number.parseInt( gespeicherteAnzahlString, 10 );
   }
 
 
@@ -125,5 +138,17 @@ export class Tab2Page implements OnInit {
     );
   }
 
+
+  /**
+   * Event-Handler für neuen Wert der Anzahl von Titelvorschlägen: 
+   * Speichert die neue Anzahl in den Einstellungen.
+   */
+  async onAnzahlTitelvorschlaegeGeaendert(): Promise<void> {
+
+    await this.einstellungenService.setzeEinstellung(
+      EinstellungenService.SCHLUESSEL_ANZAHL_TITELVORSCHLAEGE,
+      this.anzahlTitelvorschlaege.toString()
+    );
+  }
 
 }
