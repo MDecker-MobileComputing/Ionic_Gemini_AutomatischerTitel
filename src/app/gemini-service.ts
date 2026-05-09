@@ -89,7 +89,7 @@ export class GeminiService {
    * 
    * @throws Wenn Fehler beim API-Aufruf, z.B. kein API-Key oder ungültige KI-Antwort
    */
-  async erzeugeTitelvorschlaege( text: string ): Promise<string[]> {
+  public async erzeugeTitelvorschlaege( text: string ): Promise<string[]> {
 
     const apiKey = 
           await this.einstellungenService.leseEinstellung( 

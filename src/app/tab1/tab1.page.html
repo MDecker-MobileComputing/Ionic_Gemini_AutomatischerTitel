@@ -47,6 +47,7 @@
         autoGrow="true"
         rows="12"
         [(ngModel)]="text"
+        (ionChange)="onTextChanged($event)"
       ></ion-textarea>
     </ion-item>
   </ion-list>
