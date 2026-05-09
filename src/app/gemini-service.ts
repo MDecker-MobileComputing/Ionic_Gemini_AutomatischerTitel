@@ -8,6 +8,8 @@ import {
   GeminiGenerateContentResponse,
 } from './gemini-api.types';
 
+import { Tab2Page } from './tab2/tab2.page';
+
 
 /**
  * Diese Service-Klasse kapselt die Kommunikation über HTTP mit der KI "Google Gemini".
@@ -82,13 +84,13 @@ export class GeminiService {
     const model = 
           await this.einstellungenService.leseEinstellung(
             EinstellungenService.SCHLUESSEL_MODELL,
-            "gemini-2.0-flash"
+            Tab2Page.DEFAULT_GEMINI_MODELL
           );
 
     const anzahlTitelvorschlaegeString =
           await this.einstellungenService.leseEinstellung(
               EinstellungenService.SCHLUESSEL_ANZAHL_TITELVORSCHLAEGE,
-              "5"
+              Tab2Page.DEFAULT_TITELVORSCHLAEGE
           );
 
     const prompt =

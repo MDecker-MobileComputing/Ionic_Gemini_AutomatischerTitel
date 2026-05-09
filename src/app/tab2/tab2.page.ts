@@ -32,19 +32,20 @@ export class Tab2Page implements OnInit {
     "gemini-3.1-flash-lite",
   ];
 
+  public static readonly DEFAULT_TITELVORSCHLAEGE = "5";
+  public static readonly DEFAULT_GEMINI_MODELL    = Tab2Page.GEMINI_MODELLE[0];
+
   /** Für das Template: Instanz-Zugriff auf die statische Modellliste. */
   public readonly GEMINI_MODELLE: readonly string[] = Tab2Page.GEMINI_MODELLE;
 
   /** Regulärer Ausdruck für die Validierung des API-Keys. */
   private static readonly API_KEY_REGEXP_PATTERN = /^[A-Za-z0-9_-]{30,128}$/;
 
-  /** Gültiger Wertebereich für die Anzahl an Titelvorschlägen. */
-  private static readonly TITELVORSCHLAEGE_DEFAULT = 5;
 
   // Aktuell im Template angezeigte Werte und Meldungen
   public apiKey: string       = "";
   public geminiModell: string = Tab2Page.GEMINI_MODELLE[0];
-  public anzahlTitelvorschlaege: number = Tab2Page.TITELVORSCHLAEGE_DEFAULT;
+  public anzahlTitelvorschlaege: number = Number.parseInt( Tab2Page.DEFAULT_TITELVORSCHLAEGE, 10 );
 
   // Meldungen für die Validierung des API-Keys
   public meldungApiKey: string     = "";
@@ -82,7 +83,7 @@ export class Tab2Page implements OnInit {
     const gespeicherteAnzahlString =
       await this.einstellungenService.leseEinstellung(
                     EinstellungenService.SCHLUESSEL_ANZAHL_TITELVORSCHLAEGE,
-                    "5"
+                    Tab2Page.DEFAULT_TITELVORSCHLAEGE
       );
 
     this.anzahlTitelvorschlaege = Number.parseInt( gespeicherteAnzahlString, 10 );
