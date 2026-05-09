@@ -14,8 +14,10 @@ import { Preferences } from '@capacitor/preferences';
 })
 export class EinstellungenService {
 
+  /** Schlüssel für Einstellung mit API-Key. */
   public static readonly SCHLUESSEL_API_KEY = "geminiApiKey";
 
+  /** Schlüssel für Einstellung mit ausgewähltem Gemini-Modell.  */
   public static readonly SCHLUESSEL_MODELL = "geminiModel";
 
 
@@ -26,9 +28,14 @@ export class EinstellungenService {
    *
    * @param wert Wert der Einstellung, z.B. API-Key oder ausgewähltes Gemini-Modell
    */
-  async setzeEinstellung( schluessel: string, wert: string ): Promise<void> {
+  public async setzeEinstellung( schluessel: string, wert: string ): Promise<void> {
 
-    await Preferences.set({ key: schluessel, value: wert });
+    const einstellungObjekt = { 
+                                key  : schluessel, 
+                                value: wert 
+                              };
+
+    await Preferences.set( einstellungObjekt );
   }
 
 
@@ -40,7 +47,7 @@ export class EinstellungenService {
    *
    * @returns String für `schluessel` oder "" (leerer String) wenn nicht vorhanden
    */
-  async leseEinstellung( schluessel: string  ): Promise<string> {
+  public async leseEinstellung( schluessel: string  ): Promise<string> {
 
     const { value } = await Preferences.get({ key: schluessel });
     return value ?? "";

@@ -1,7 +1,9 @@
-import { Component, OnInit }    from '@angular/core';
-import { EinstellungenService } from '../einstellungen-service';
-import { GeminiService }        from '../gemini-service';
+import { Component, OnInit } from '@angular/core';
+
+import { EinstellungenService }    from '../einstellungen-service';
+import { GeminiService }           from '../gemini-service';
 import { extrahiereFehlermeldung } from '../fehlertext.util';
+
 
 @Component({
   selector: 'app-tab2',
@@ -11,12 +13,23 @@ import { extrahiereFehlermeldung } from '../fehlertext.util';
 })
 export class Tab2Page implements OnInit {
 
-  /** Zur Auswahl der verfügbaren Gemini-Modelle, müssen alphabetisch sortiert sein. */
+  /** 
+   * Zur Auswahl der verfügbaren Gemini-Modelle, müssen alphabetisch sortiert sein. 
+   * Hier nur für das Konto, mit dem der API-Key erzeugt wurde, verfügbare Modelle eintragen.
+   * 
+   * Verfügbare Modelle finden:
+   * * Auf Seite https://aistudio.google.com/rate-limit gehen
+   * * Schalter "Alle Modelle anzeigen" aktivieren
+   * * Spalte "Kategorie" sortieren und nach "Textausgabemodelle" suchen
+   * * Modelle auswählen, die für alle drei Metriken RPM, TPM und RPD _nicht_ "0 / 0" haben
+   *     
+   * * siehe auch https://github.com/MDecker-MobileComputing/Nodejs_GeminiTest#usage-%C3%BCberwachen
+   */
   public static readonly GEMINI_MODELLE: readonly string[] = [
-    "gemini-2.0-flash",
-    "gemini-2.0-flash-lite",
     "gemini-2.5-flash",
     "gemini-2.5-flash-lite",
+    "gemini-3-flash-preview",
+    "gemini-3.1-flash-lite",
   ];
 
   /** Für das Template: Instanz-Zugriff auf die statische Modellliste. */
@@ -81,7 +94,7 @@ export class Tab2Page implements OnInit {
     try {
 
       const modelleArray = await this.geminiService.holeModelle( bereinigterKey );
-      console.log( "Verfügbare Gemini-Modelle: ", modelleArray );
+      console.log( "Einige der verfügbaren Gemini-Modelle: ", modelleArray );
 
     } catch ( fehler ) {
       

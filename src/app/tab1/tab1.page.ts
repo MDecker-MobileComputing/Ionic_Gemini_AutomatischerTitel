@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { GeminiService } from '../gemini-service';
+
+import { GeminiService }           from '../gemini-service';
+import { extrahiereFehlermeldung } from '../fehlertext.util';
+
 
 @Component({
   selector: 'app-tab1',
@@ -59,7 +62,9 @@ export class Tab1Page {
 
     } catch ( fehler ) {
 
-      this.titelFehler = "Fehler bei der Generierung des Titelvorschlags: " + fehler;
+      this.titelFehler = 
+          "Fehler bei der Generierung des Titelvorschlags: " + 
+          extrahiereFehlermeldung( fehler );
 
     } finally {
 
