@@ -51,10 +51,15 @@ export class Tab2Page implements OnInit {
                     EinstellungenService.SCHLUESSEL_API_KEY
         );
 
-    this.geminiModell =
+    const gespeichertesModell =
       await this.einstellungenService.leseEinstellung(
                     EinstellungenService.SCHLUESSEL_MODELL
       );
+
+    if ( Tab2Page.GEMINI_MODELLE.includes( gespeichertesModell ) ) {
+
+      this.geminiModell = gespeichertesModell;
+    }
   }
 
 
