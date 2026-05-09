@@ -26,10 +26,10 @@ export class Tab2Page implements OnInit {
    * * siehe auch https://github.com/MDecker-MobileComputing/Nodejs_GeminiTest#usage-%C3%BCberwachen
    */
   public static readonly GEMINI_MODELLE: readonly string[] = [
+    "gemini-3.1-flash-lite", // Modell mit größtem Frei-Quota Stand Mai 2026
     "gemini-2.5-flash",
     "gemini-2.5-flash-lite",
-    "gemini-3-flash-preview",
-    "gemini-3.1-flash-lite",
+    "gemini-3-flash-preview"
   ];
 
   public static readonly DEFAULT_TITELVORSCHLAEGE = "5";
