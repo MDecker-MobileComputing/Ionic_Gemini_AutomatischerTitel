@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 
 import { EinstellungenService } from './einstellungen-service';
 
@@ -21,25 +22,36 @@ export class GeminiService {
   constructor( private einstellungenService: EinstellungenService,
                private httpClient: HttpClient ) {}
 
-
   /**
    * Fragt über REST-Calls die verfügbaren Gemini-Modelle ab.
+   * Hiermit kann getestet werden, ob ein formal korrekter API-Key auch
+   * tatsächlich funktioniert und ob die KI erreichbar ist.
    *
    * @returns Array mit den Namen der verfügbaren Gemini-Modelle,
    *          z.B. `["gemini-2.0-flash", "gemini-2.0-flash-lite", "gemini-2.5-flash" ]`
+   * 
+   * @throws Fehler, wenn kein API-Key gefunden wird oder wenn die HTTP-Anfrage fehlschlägt
    */
-  async holeModelle(): Promise<string[]> {
+  public async holeModelle(): Promise<string[]> {
 
     const apiKey = await this.einstellungenService.leseEinstellung( EinstellungenService.SCHLUESSEL_API_KEY );
     if (!apiKey) {
 
-      throw new Error( "Kein API-Key gefunden" );
+      throw new Error( "API-Key nicht gesetzt" );
     }
 
-    const url = `${GeminiService.GEMINI_BASIS_URL}/models`;
+    const url = `${GeminiService.GEMINI_BASIS_URL}/models?keyxx=${apiKey}&pageSize=3`;
 
+    const antwort = await firstValueFrom(
+      this.httpClient.get<{ models?: Array<{ name?: string }> }>( url )
+    );
 
-    return [];
+    const modelleArray = (antwort.models ?? [])
+      .map((modell) => modell.name ?? "")
+      .filter((name) => name.length > 0)
+      .map((name) => name.replace(/^models\//, ""));
+
+    return modelleArray;
   }
 
 

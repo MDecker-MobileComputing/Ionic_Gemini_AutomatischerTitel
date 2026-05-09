@@ -21,7 +21,7 @@
         [(ngModel)]="geminiModell"
         (ionChange)="onGeminiModellGeaendert()"
       >
-        <ion-select-option *ngFor="let modell of geminiModelle" [value]="modell">
+        <ion-select-option *ngFor="let modell of GEMINI_MODELLE" [value]="modell">
           {{ modell }}
         </ion-select-option>
       </ion-select>
