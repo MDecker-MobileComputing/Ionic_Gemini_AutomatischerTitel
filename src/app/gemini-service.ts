@@ -27,31 +27,33 @@ export class GeminiService {
    * Hiermit kann getestet werden, ob ein formal korrekter API-Key auch
    * tatsächlich funktioniert und ob die KI erreichbar ist.
    *
-   * @returns Array mit den Namen der verfügbaren Gemini-Modelle,
+   * @returns Array mit einigen verfügbaren Gemini-Modellen (aber nicht allen),
    *          z.B. `["gemini-2.0-flash", "gemini-2.0-flash-lite", "gemini-2.5-flash" ]`
    * 
    * @throws Fehler, wenn kein API-Key gefunden wird oder wenn die HTTP-Anfrage fehlschlägt
    */
   public async holeModelle(): Promise<string[]> {
 
-    const apiKey = await this.einstellungenService.leseEinstellung( EinstellungenService.SCHLUESSEL_API_KEY );
+    const apiKey = 
+        await this.einstellungenService.leseEinstellung( 
+                    EinstellungenService.SCHLUESSEL_API_KEY );                              
     if (!apiKey) {
 
       throw new Error( "API-Key nicht gesetzt" );
     }
 
-    const url = `${GeminiService.GEMINI_BASIS_URL}/models?keyxx=${apiKey}&pageSize=3`;
+    const url = `${GeminiService.GEMINI_BASIS_URL}/models?key=${apiKey}&pageSize=3`;
 
     const antwort = await firstValueFrom(
       this.httpClient.get<{ models?: Array<{ name?: string }> }>( url )
     );
 
-    const modelleArray = (antwort.models ?? [])
-      .map((modell) => modell.name ?? "")
-      .filter((name) => name.length > 0)
-      .map((name) => name.replace(/^models\//, ""));
+    const modelleArray = ( antwort.models ?? [] )
+      .map(    (modell) => modell.name ?? "" )
+      .filter( (name)   => name.length > 0   )
+      .map(    (name)   => name.replace( /^models\//, "" ) );
 
-    return modelleArray;
+    return modelleArray ;
   }
 
 
