@@ -3,7 +3,8 @@
 <br>
 
 Diese Repository enthält ein [Ionic](https://ionicframework.com/)/Angular-Projekt für eine mobile App,
-die demonstrieren soll, wie man die LLM-KI [Gemini](https://ai.google.dev/) über einen REST-Call anspricht.
+die demonstrieren soll, wie man die KI [Google Gemini](https://ai.google.dev/) 
+([LLM](https://www.ibm.com/de-de/think/topics/large-language-models)) über ihre REST-API verwendet.
 
 <br>
 

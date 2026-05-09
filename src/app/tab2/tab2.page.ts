@@ -80,7 +80,7 @@ export class Tab2Page implements OnInit {
 
     try {
 
-      const modelleArray = await this.geminiService.holeModelle();
+      const modelleArray = await this.geminiService.holeModelle( bereinigterKey );
       console.log( "Verfügbare Gemini-Modelle: ", modelleArray );
 
     } catch ( fehler ) {

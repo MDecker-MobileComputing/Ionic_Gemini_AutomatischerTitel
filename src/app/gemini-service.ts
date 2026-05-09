@@ -6,7 +6,7 @@ import { EinstellungenService } from './einstellungen-service';
 
 
 /**
- * Diese Service-Klasse kapselt die Kommunikation mit der KI "Google Gemini".
+ * Diese Service-Klasse kapselt die Kommunikation über HTTP mit der KI "Google Gemini".
  */
 @Injectable({
   providedIn: 'root',
@@ -27,20 +27,14 @@ export class GeminiService {
    * Hiermit kann getestet werden, ob ein formal korrekter API-Key auch
    * tatsächlich funktioniert und ob die KI erreichbar ist.
    *
+   * @param apiKey API-Key, der getestet werden soll. 
+   * 
    * @returns Array mit einigen verfügbaren Gemini-Modellen (aber nicht allen),
    *          z.B. `["gemini-2.0-flash", "gemini-2.0-flash-lite", "gemini-2.5-flash" ]`
    * 
    * @throws Fehler, wenn kein API-Key gefunden wird oder wenn die HTTP-Anfrage fehlschlägt
    */
-  public async holeModelle(): Promise<string[]> {
-
-    const apiKey = 
-        await this.einstellungenService.leseEinstellung( 
-                    EinstellungenService.SCHLUESSEL_API_KEY );                              
-    if (!apiKey) {
-
-      throw new Error( "API-Key nicht gesetzt" );
-    }
+  public async holeModelle( apiKey: string): Promise<string[]> {
 
     const url = `${GeminiService.GEMINI_BASIS_URL}/models?key=${apiKey}&pageSize=3`;
 
