@@ -3,33 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 
 import { EinstellungenService } from './einstellungen-service';
-
-
-interface GeminiTextPart {
-  text?: string;
-}
-
-interface GeminiContent {
-  parts?: GeminiTextPart[];
-}
-
-interface GeminiCandidate {
-  content?: GeminiContent;
-}
-
-interface GeminiGenerateContentResponse {
-  candidates?: GeminiCandidate[];
-}
-
-interface GeminiGenerateContentRequest {
-  generationConfig: {
-    responseMimeType: string;
-    temperature: number;
-  };
-  contents: Array<{
-    parts: Array<{ text: string }>;
-  }>;
-}
+import {
+  GeminiGenerateContentRequest,
+  GeminiGenerateContentResponse,
+} from './gemini-api.types';
 
 
 /**
