@@ -86,6 +86,8 @@ export class GeminiService {
    * @param text Text, für den ein Titel erzeugt werden soll
    *
    * @returns Array mit Titelvorschlägen, die von der KI generiert wurden
+   * 
+   * @throws Wenn Fehler beim API-Aufruf, z.B. kein API-Key oder ungültige KI-Antwort
    */
   async erzeugeTitelvorschlaege( text: string ): Promise<string[]> {
 
@@ -139,11 +141,23 @@ export class GeminiService {
 
     const antwort = await firstValueFrom( antwortObservable );
 
-    const titelVorschlaegeArray = antwort.candidates?.[0].content?.parts
-                                        ?.map( part => part.text?.trim() ?? "" )
-                                        .filter( text => text.length > 0 ) ?? [];
+    const antwortText = antwort.candidates?.[0].content?.parts?.[0]?.text?.trim();
 
-    return titelVorschlaegeArray;
+    console.log( "Rohantwort der KI:", antwortText );
+    
+    if ( !antwortText ) { 
+      
+      throw new Error( "Die KI hat keine gültige Antwort zurückgegeben." );
+    }
+
+    const parsedArray = JSON.parse( antwortText );
+
+    if ( Array.isArray( parsedArray ) == false ) {
+
+      throw new Error( "Die KI-Antwort ist kein gültiges JSON-Array." );
+    }
+    
+    return parsedArray;
   }
 
 }
