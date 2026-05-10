@@ -5,6 +5,9 @@ import { GeminiService }           from '../gemini-service';
 import { extrahiereFehlermeldung } from '../fehlertext.util';
 
 
+/***
+ * TypeScript-Klasse für die Seite "Einstellungen" (Tab 2).
+ */
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
@@ -34,6 +37,7 @@ export class Tab2Page implements OnInit {
 
   public static readonly DEFAULT_TITELVORSCHLAEGE = "5";
   public static readonly DEFAULT_GEMINI_MODELL    = Tab2Page.GEMINI_MODELLE[0];
+  public static readonly DEFAULT_TEMPERATUR       = "1.0";
 
   /** Für das Template: Instanz-Zugriff auf die statische Modellliste. */
   public readonly GEMINI_MODELLE: readonly string[] = Tab2Page.GEMINI_MODELLE;
@@ -46,6 +50,7 @@ export class Tab2Page implements OnInit {
   public apiKey: string       = "";
   public geminiModell: string = Tab2Page.GEMINI_MODELLE[0];
   public anzahlTitelvorschlaege: number = Number.parseInt( Tab2Page.DEFAULT_TITELVORSCHLAEGE, 10 );
+  public temperatur: number = Number.parseFloat( Tab2Page.DEFAULT_TEMPERATUR );
 
   // Meldungen für die Validierung des API-Keys
   public meldungApiKey: string     = "";
@@ -87,6 +92,14 @@ export class Tab2Page implements OnInit {
       );
 
     this.anzahlTitelvorschlaege = Number.parseInt( gespeicherteAnzahlString, 10 );
+
+    const gespeicherteTemperaturString =
+      await this.einstellungenService.leseEinstellung(
+                    EinstellungenService.SCHLUESSEL_TEMPERATUR,
+                    Tab2Page.DEFAULT_TEMPERATUR
+      );
+
+    this.temperatur = Number.parseFloat( gespeicherteTemperaturString );
   }
 
 
@@ -149,6 +162,19 @@ export class Tab2Page implements OnInit {
     await this.einstellungenService.setzeEinstellung(
       EinstellungenService.SCHLUESSEL_ANZAHL_TITELVORSCHLAEGE,
       this.anzahlTitelvorschlaege.toString()
+    );
+  }
+
+  
+  /**
+   * Event-Handler für neuen Wert der Temperature: 
+   * Speichert die neue Temperatur in den Einstellungen.
+   */
+  async onTemperaturGeaendert(): Promise<void> {
+
+    await this.einstellungenService.setzeEinstellung(
+      EinstellungenService.SCHLUESSEL_TEMPERATUR,
+      this.temperatur.toString()
     );
   }
 

@@ -39,6 +39,21 @@
       ></ion-input>
     </ion-item>
 
+    <ion-item class="einstellung-block-abstand-oben">
+      <div style="width: 100%; padding-bottom: 12px;">
+        <ion-label>Temperature: {{ temperatur.toFixed(1) }}</ion-label>
+        <ion-range
+          min="0.0"
+          max="2.0"
+          step="0.1"
+          [(ngModel)]="temperatur"
+          (ionChange)="onTemperaturGeaendert()"
+          color="primary"
+        ></ion-range>
+        <ion-note>Je höher, desto kreativer die Titel</ion-note>
+      </div>
+    </ion-item>
+
     <ion-item>
       <ion-input
         label="API-Key für Gemini"

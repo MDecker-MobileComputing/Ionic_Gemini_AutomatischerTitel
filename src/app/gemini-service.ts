@@ -93,6 +93,13 @@ export class GeminiService {
               Tab2Page.DEFAULT_TITELVORSCHLAEGE
           );
 
+    const temperaturString =
+          await this.einstellungenService.leseEinstellung(
+              EinstellungenService.SCHLUESSEL_TEMPERATUR,
+              Tab2Page.DEFAULT_TEMPERATUR
+          );
+    const temperatur = Number.parseFloat( temperaturString );
+
     const prompt =
           `Erzeuge genau ${anzahlTitelvorschlaegeString} Titelvorschläge für folgenden Text. \
           Die Titel sollen sachlich und nüchtern formuliert sein, \
@@ -103,13 +110,11 @@ export class GeminiService {
           Text: ${text}`;
  
     const url = `${GeminiService.GEMINI_BASIS_URL}/models/${model}:generateContent?key=${apiKey}`;
-
-    console.log( `Sende Anfrage für ${anzahlTitelvorschlaegeString} Titelvorschläge an KI-Modell "${model}" ...` );
-
+      
     const httpRequestBody: GeminiGenerateContentRequest = {
       generationConfig: {
         responseMimeType: "application/json",
-        temperature: 0.7
+        temperature: temperatur
       },
       contents: [
         {
@@ -121,6 +126,11 @@ export class GeminiService {
     // zwischen Kreativität und Verständlichkeit.
     //
     // Weitere Parts neben dem Prompt könnten z.B. Binärdaten sein, z.B. Bilder oder PDFs.
+
+    console.log(
+      `Anfrage für ${anzahlTitelvorschlaegeString} Titelvorschläge an KI-Modell "${model}" gesendet ` +
+      `(Temperatur: ${temperatur.toFixed(1)}) ...`
+    );
 
     const antwortObservable = 
         this.httpClient.post<GeminiGenerateContentResponse>( url, httpRequestBody );

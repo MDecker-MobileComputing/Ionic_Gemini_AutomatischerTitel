@@ -23,6 +23,9 @@ export class EinstellungenService {
   /** Schlüssel für Einstellung mit Anzahl von Titelvorschlägen pro API-Request. */
   public static readonly SCHLUESSEL_ANZAHL_TITELVORSCHLAEGE = "anzahlTitelvorschlaege";
 
+  /** Schlüssel für Einstellung mit Temperature-Parameter des KI-Modells (0.0 - 2.0). */
+  public static readonly SCHLUESSEL_TEMPERATUR = "geminiTemperatur";
+
 
   /**
    * Speichert eine Einstellung. Alle Einstellungen werden als String gespeichert.
