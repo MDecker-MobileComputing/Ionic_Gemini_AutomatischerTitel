@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import Denque     from "denque";
+import { AlertController } from '@ionic/angular';
 
 import { GeminiService }           from '../gemini-service';
 import { extrahiereFehlermeldung } from '../fehlertext.util';
@@ -32,7 +33,8 @@ export class Tab1Page {
   /**
    * Konstruktor für *Dependency Injection*
    */
-  constructor( private geminiService: GeminiService ) {}
+  constructor( private geminiService: GeminiService,
+               private alertController: AlertController ) {}
 
   /**
    * Event-Handler für Änderungen im Text-Editor. Hiermit werden die Titelvorschläge 
@@ -110,14 +112,32 @@ export class Tab1Page {
 
 
   /**
-   * Event-Handler für den "Lösch"-Button.
+   * Event-Handler für den "Lösch"-Button: Löscht Titel- und Textfeld sowie
+   * die Warteschlange mit Titelvorschlägen.
    */
-  public onButtonLoeschen()  {
-      
-    this.titel = "";
-    this.text  = "";
+  public async onButtonLoeschen(): Promise<void> {
 
-    this.titelQueue.clear();
+    const alert = await this.alertController.create({
+      header: "Löschen bestätigen",
+      message: "Titel und Titelvorschläge wirklich löschen?",
+      buttons: [
+        {
+          text: "Abbrechen",
+          role: "cancel"
+        },
+        {
+          text: "Löschen",
+          role: "destructive",
+          handler: () => {
+            this.titel = "";
+            this.text  = "";
+            this.titelQueue.clear();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
 }
