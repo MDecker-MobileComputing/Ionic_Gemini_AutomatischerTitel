@@ -35,7 +35,7 @@ export class Tab2Page implements OnInit {
     "gemini-3-flash-preview"
   ];
 
-  public static readonly DEFAULT_TITELVORSCHLAEGE = "5";
+  public static readonly DEFAULT_TITELVORSCHLAEGE = "4";
   public static readonly DEFAULT_GEMINI_MODELL    = Tab2Page.GEMINI_MODELLE[0];
   public static readonly DEFAULT_TEMPERATUR       = "1.0";
 
