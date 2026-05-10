@@ -108,4 +108,16 @@ export class Tab1Page {
     }
   }
 
+
+  /**
+   * Event-Handler für den "Lösch"-Button.
+   */
+  public onButtonLoeschen()  {
+      
+    this.titel = "";
+    this.text  = "";
+
+    this.titelQueue.clear();
+  }
+
 }

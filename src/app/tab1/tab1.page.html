@@ -23,20 +23,6 @@
       ></ion-input>
     </ion-item>
 
-    <ion-item lines="none">
-      <ion-button
-        expand="block"
-        (click)="onButtonErzeugeTitelVorschlag()"
-        [disabled]="istTitelWirdGeradeGeneriert"
-      >
-        {{ istTitelWirdGeradeGeneriert ? 'Erzeuge Titel...' : 'Titel-Vorschlag erzeugen' }}
-      </ion-button>
-    </ion-item>
-
-    <ion-item *ngIf="titelFehler" lines="none">
-      <ion-note color="danger">{{ titelFehler }}</ion-note>
-    </ion-item>
-
     <br><br>
 
     <ion-item>
@@ -50,6 +36,32 @@
         (ionChange)="onTextChanged($event)"
       ></ion-textarea>
     </ion-item>
+
+    <ion-item lines="none">
+      <ion-button
+        expand="block"
+        (click)="onButtonErzeugeTitelVorschlag()"
+        [disabled]="istTitelWirdGeradeGeneriert"
+      >
+        {{ istTitelWirdGeradeGeneriert ? 'Erzeuge Titel...' : 'Titel-Vorschlag erzeugen' }}
+      </ion-button>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-button
+        expand="block"
+        color="danger"
+        (click)="onButtonLoeschen()"
+        [disabled]="istTitelWirdGeradeGeneriert"
+      >
+        Titel und Text löschen
+      </ion-button>
+    </ion-item>
+    
+    <ion-item *ngIf="titelFehler" lines="none">
+      <ion-note color="danger">{{ titelFehler }}</ion-note>
+    </ion-item>
+
   </ion-list>
 
 </ion-content>
