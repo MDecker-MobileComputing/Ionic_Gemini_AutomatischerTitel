@@ -8,6 +8,11 @@ die demonstrieren soll, wie man die KI [Google Gemini](https://ai.google.dev/)
 
 <br>
 
+Zu Überwachung Quota/Rate Limit in *Google AI Studio* siehe auch
+[hier](https://github.com/MDecker-MobileComputing/Nodejs_GeminiTest#usage-%C3%BCberwachen)
+
+<br>
+
 ----
 
 ## License ##
