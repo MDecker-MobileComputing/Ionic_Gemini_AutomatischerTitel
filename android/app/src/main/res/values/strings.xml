@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Gemini: Titel automatisch</string>
+    <string name="title_activity_main">Gemini: Titel automatisch</string>
+    <string name="package_name">de.eldecker.ionic.titelautomatisch</string>
+    <string name="custom_url_scheme">de.eldecker.ionic.titelautomatisch</string>
+</resources>
