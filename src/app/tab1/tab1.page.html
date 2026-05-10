@@ -37,26 +37,24 @@
       ></ion-textarea>
     </ion-item>
 
-    <ion-item lines="none">
+    <div class="action-buttons">
       <ion-button
-        expand="block"
+        class="action-button"
         (click)="onButtonErzeugeTitelVorschlag()"
         [disabled]="istTitelWirdGeradeGeneriert"
       >
         {{ istTitelWirdGeradeGeneriert ? 'Erzeuge Titel...' : 'Titel-Vorschlag erzeugen' }}
       </ion-button>
-    </ion-item>
 
-    <ion-item lines="none">
       <ion-button
-        expand="block"
+        class="action-button"
         color="danger"
         (click)="onButtonLoeschen()"
         [disabled]="istTitelWirdGeradeGeneriert"
       >
         Titel und Text löschen
       </ion-button>
-    </ion-item>
+    </div>
     
     <ion-item *ngIf="titelFehler" lines="none">
       <ion-note color="danger">{{ titelFehler }}</ion-note>

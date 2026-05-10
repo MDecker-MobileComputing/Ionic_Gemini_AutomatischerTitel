@@ -1,0 +1,15 @@
+.action-buttons {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	margin: 16px 0;
+	padding: 0 16px;
+	box-sizing: border-box;
+	width: 100%;
+}
+
+.action-button {
+	flex: 1 1 220px;
+	min-width: 220px;
+	margin: 0;
+}
