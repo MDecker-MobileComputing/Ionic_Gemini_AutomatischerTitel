@@ -3,13 +3,25 @@
 <br>
 
 Diese Repository enthält ein [Ionic](https://ionicframework.com/)/Angular-Projekt für eine mobile App,
-die demonstrieren soll, wie man die KI [Google Gemini](https://ai.google.dev/) 
+die demonstrieren soll, wie man die KI [Google Gemini](https://ai.google.dev/)
 ([LLM](https://www.ibm.com/de-de/think/topics/large-language-models)) über ihre REST-API verwendet.
 
 <br>
 
 Zu Überwachung Quota/Rate Limit in *Google AI Studio* siehe auch
 [hier](https://github.com/MDecker-MobileComputing/Nodejs_GeminiTest#usage-%C3%BCberwachen)
+
+<br>
+
+----
+
+## Screenshots ##
+
+<br>
+
+![Screenshot 1: Tab "Editor"](screenshot_1.png)
+
+![Screenshot 2: Tab "Einstellungen"](screenshot_2.png)
 
 <br>
 
