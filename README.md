@@ -19,9 +19,7 @@ Zu Überwachung Quota/Rate Limit in *Google AI Studio* siehe auch
 
 <br>
 
-![Screenshot 1: Tab "Editor"](screenshot_1.png)
-
-![Screenshot 2: Tab "Einstellungen"](screenshot_2.png)
+![Screenshot 1: Tab "Editor"](screenshot_1.png) &nbsp; ![Screenshot 2: Tab "Einstellungen"](screenshot_2.png)
 
 <br>
 
