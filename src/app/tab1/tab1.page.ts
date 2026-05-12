@@ -38,12 +38,10 @@ export class Tab1Page {
 
   /**
    * Event-Handler für Änderungen im Text-Editor. Hiermit werden die Titelvorschläge 
-   * in der Warteschlange gelöscht,  da sie sich ja auf den alten Text beziehen und 
+   * in der Warteschlange gelöscht, da sie sich ja auf den alten Text beziehen und 
    * damit nicht mehr gültig sind.
-   * 
-   * @param event 
    */
-  public onTextChanged( event: any ) {
+  public onTextChanged() {
 
     this.titelQueue.clear();
     console.log( "Text geändert, lösche Warteschlagen." );    
