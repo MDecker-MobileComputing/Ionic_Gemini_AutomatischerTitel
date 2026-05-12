@@ -31,7 +31,7 @@
         autoGrow="true"
         rows="12"
         [(ngModel)]="text"
-        (ionChange)="onTextChanged($event)"
+        (ionChange)="onTextChanged()"
       ></ion-textarea>
     </ion-item>
 
@@ -53,7 +53,7 @@
         Titel und Text löschen
       </ion-button>
     </div>
-    
+
     <ion-item *ngIf="titelFehler" lines="none">
       <ion-note color="danger">{{ titelFehler }}</ion-note>
     </ion-item>
