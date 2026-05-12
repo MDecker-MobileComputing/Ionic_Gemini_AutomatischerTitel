@@ -8,6 +8,9 @@ import { Preferences } from '@capacitor/preferences';
  *
  * Funktioniert auch in Browsern, da das Plugin in diesem Fall die `localStorage`-API verwendet.
  * Hier wird z.B. für den Key `abc` der Wert `CapacitorStorage.abc` verwendet.
+ *
+ * Auf einem Android-Gerät/Emulator werden die Einstellungen in einem SharedPreferences-File gespeichert,
+ * siehe z.B. https://gist.github.com/MDecker-MobileComputing/b6d375279d4fb136a12a293be214afa6
  */
 @Injectable({
   providedIn: 'root',
@@ -36,9 +39,9 @@ export class EinstellungenService {
    */
   public async setzeEinstellung( schluessel: string, wert: string ): Promise<void> {
 
-    const einstellungObjekt = { 
-                                key  : schluessel, 
-                                value: wert 
+    const einstellungObjekt = {
+                                key  : schluessel,
+                                value: wert
                               };
 
     await Preferences.set( einstellungObjekt );
@@ -50,7 +53,7 @@ export class EinstellungenService {
    * oder `defaultWert` wenn nicht vorhanden.
    *
    * @param schluessel Key für Einstellungswert
-   * 
+   *
    * @param defaultWert Optionaler Fallback-Wert, wenn keine Einstellung vorhanden ist
    *
    * @returns String für `schluessel` oder `defaultWert` wenn nicht vorhanden
